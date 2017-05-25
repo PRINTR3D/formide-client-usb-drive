@@ -45,7 +45,33 @@ class UsbDrives extends Plugin {
 		return new Promise((resolve, reject) => {
 			usb.read(drive, path, (err, files) => {
 				if (err) return reject(err)
-				return resolve(files)
+
+				files = files.split('\n')
+				let output = []
+
+				// get name, size and type from file list
+				for (let i = 0; i < files.length; i++) {
+
+					// get file details
+					let file = files[i].replace(/ +(?= )/g, '').split(' ')
+					let name = file[8]
+
+					// filter
+					if (file.length > 9) {
+						name = file.splice(8, file.length - 1).join(' ')
+					}
+
+					// check if file or dir (with -F)
+					if (file.length >= 8) {
+						output.push({
+							name: name,
+							size: file[4],
+							type: (name.charAt(name.length - 1) === '/') ? 'dir' : 'file'
+						})
+					}
+				}
+
+				return resolve(output)
 			})
 		})
 	}
