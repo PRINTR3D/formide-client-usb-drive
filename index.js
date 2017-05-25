@@ -14,6 +14,9 @@ class UsbDrives extends Plugin {
 		return api(this, router)
 	}
 	
+	/**
+	 * List USB drives
+	 */
 	getDrives () {
 		return new Promise((resolve, reject) => {
 			usb.drives((err, drives) => {
@@ -23,24 +26,41 @@ class UsbDrives extends Plugin {
 		})
 	}
 	
+	/**
+	 * Mount USB drive
+	 * @param {*} drive 
+	 */
 	mountDrive (drive) {
 		return new Promise((resolve, reject) => {
 			usb.mount(drive, (err, result) => {
 				if (err) return reject(err)
-				return resolve(result)
+				return resolve({
+					message: 'drive mounted'
+				})
 			})
 		})
 	}
 	
+	/**
+	 * Unmount USB drive
+	 * @param {*} drive 
+	 */
 	unmountDrive (drive) {
 		return new Promise((resolve, reject) => {
 			usb.drives(drive, (err, result) => {
 				if (err) return reject(err)
-				return resolve(result)
+				return resolve({
+					message: 'drive unmounted'
+				})
 			})
 		})
 	}
 	
+	/**
+	 * Read drive on relative path
+	 * @param {*} drive 
+	 * @param {*} path 
+	 */
 	readDrive (drive, path) {
 		return new Promise((resolve, reject) => {
 			usb.read(drive, path, (err, files) => {
@@ -76,6 +96,11 @@ class UsbDrives extends Plugin {
 		})
 	}
 	
+	/**
+	 * Copy file from USB drive to local storage
+	 * @param {*} drive 
+	 * @param {*} path 
+	 */
 	copyFile (drive, path) {
 		const self = this
 		return new Promise((resolve, reject) => {
