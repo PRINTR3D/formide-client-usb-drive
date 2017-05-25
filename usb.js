@@ -60,8 +60,8 @@ module.exports = {
 	 * @param drive
 	 * @param path
 	 */
-	readFile (drive, path) {
-		const filePath = path.resolve(drive, path)
-		return fs.createReadStream(filePath)
+	readFile (drive, filePath) {
+		const fullFilePath = path.resolve('/run/media', drive, filePath)
+		return fs.createReadStream(fullFilePath)
 	}
 }
