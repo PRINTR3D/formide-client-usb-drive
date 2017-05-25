@@ -18,7 +18,7 @@ class UsbDrives extends Plugin {
 		return new Promise((resolve, reject) => {
 			usb.drives((err, drives) => {
 				if (err) return reject(err)
-				return resolve(drives)
+				return resolve(drives.split('\n'))
 			})
 		})
 	}
