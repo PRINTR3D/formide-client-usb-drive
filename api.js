@@ -54,8 +54,8 @@ module.exports = function api (plugin, router) {
 	 * @apiHeader {String} Authentication Valid Bearer JWT token
 	 * @apiParam {String} path Relative path for which file to copy to local storage
 	 */
-	router.post('/drives/:drive/copy', plugin._client.http.checkAuth.jwt, plugin._client.http.checkParams(['path'], 'query'), function (req, res) {
-		plugin.copyFile(req.params.drive, req.query.path).then(res.ok).catch((err) => {
+	router.post('/drives/:drive/copy', plugin._client.http.checkAuth.jwt, plugin._client.http.checkParams(['path']), function (req, res) {
+		plugin.copyFile(req.params.drive, req.body.path).then(res.ok).catch((err) => {
 			if (err.name === 'storageFull') {
 				return res.insufficientStorage(err.message)
 			} else if (err.name === 'invalidFiletype') {
