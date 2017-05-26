@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const pkg = require('./package.json')
 const api = require('./api')
 const usb = require('./usb')
@@ -101,11 +102,12 @@ class UsbDrives extends Plugin {
 	 * @param {*} drive 
 	 * @param {*} path 
 	 */
-	copyFile (drive, path) {
+	copyFile (drive, filePath) {
 		const self = this
 		return new Promise((resolve, reject) => {
-			const readStream = usb.readFile(drive, path)
-			self._client.storage.write(path, readStream).then((stats) => {
+			const readStream = usb.readFile(drive, filePath)
+			const filename = path.basename(filePath)
+			self._client.storage.write(filename, readStream).then((stats) => {
 				return resolve(stats)
 			}).catch((err) => {
 				return reject(err)
