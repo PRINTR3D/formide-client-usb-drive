@@ -1,5 +1,6 @@
 'use strict'
 
+const fs = require('fs')
 const path = require('path')
 const pkg = require('./package.json')
 const api = require('./api')
@@ -105,6 +106,7 @@ class UsbDrives extends Plugin {
 	copyFile (drive, filePath) {
 		const self = this
 		return new Promise((resolve, reject) => {
+			if (!fs.existsSync(path.join('/run/media', drive, filePath))) return reject(new Error('File not found'))
 			const readStream = usb.readFile(drive, filePath)
 			const filename = path.basename(filePath)
 			self._client.storage.write(filename, readStream).then((stats) => {
