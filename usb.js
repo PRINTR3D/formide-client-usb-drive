@@ -53,15 +53,5 @@ module.exports = {
 			if (err) return callback(err)
 			return callback(null, stdout.trim())
 		})
-	},
-	
-	/**
-	 * Create a read stream for the file on USB
-	 * @param drive
-	 * @param path
-	 */
-	readFile (drive, filePath) {
-		const fullFilePath = path.resolve('/run/media', drive, filePath)
-		return fs.createReadStream(fullFilePath)
 	}
 }

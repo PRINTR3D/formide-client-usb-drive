@@ -116,9 +116,21 @@ class UsbDrives extends Plugin {
 	copyFile (drive, filePath) {
 		const self = this
 		return new Promise((resolve, reject) => {
-			if (!fs.existsSync(path.join('/run/media', drive, filePath))) return reject(new Error('File not found'))
-			const readStream = usb.readFile(drive, filePath)
+
+			// find full file path
+			const fullFilePath = path.resolve('/run/media', drive, filePath)
+			console.log('fullFilePath', fullFilePath)
+			
+			// check if exits
+			if (!fs.existsSync(fullFilePath)) return reject(new Error('File not found'))
+
+			// create read stream
+			const readStream = fs.createReadStream(fullFilePath)
+
+			// get base name
 			const filename = path.basename(filePath)
+
+			// call storage module to transfer file
 			self._client.storage.write(filename, readStream).then((stats) => {
 				return resolve(stats)
 			}).catch((err) => {
