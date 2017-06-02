@@ -78,6 +78,8 @@ class UsbDrives extends Plugin {
 					let file = files[i].replace(/ +(?= )/g, '').split(' ')
 					let name = file[8]
 
+					console.log('name', name)
+
 					if (!name) continue;
 
 					// filter
@@ -119,7 +121,6 @@ class UsbDrives extends Plugin {
 
 			// find full file path
 			const fullFilePath = path.join('/run/media', drive, filePath)
-			console.log('fullFilePath', fullFilePath)
 			
 			// check if exits
 			if (!fs.existsSync(fullFilePath)) return reject(new Error('File not found'))
