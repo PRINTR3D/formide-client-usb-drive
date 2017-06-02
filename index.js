@@ -78,7 +78,7 @@ class UsbDrives extends Plugin {
 					let file = files[i].replace(/ +(?= )/g, '').split(' ')
 					let name = file[8]
 
-					if (!name) continue;
+					if (!name) continue
 
 					// filter
 					if (file.length > 9) {
