@@ -89,12 +89,12 @@ class UsbDrives extends Plugin {
 					const fileType = (name.charAt(name.length - 1) === '/') ? 'dir' : 'file'
 
 					// strip away * from file name (because of -F)
-					if (file.name.charAt(file.name.length - 1) === '*') {
-						file.name = file.name.slice(0, -1)
+					if (name.charAt(name.length - 1) === '*') {
+						name = name.slice(0, -1)
 					}
 
 					// add to result if folder or gcode
-					if (file.length >= 8 && (file.name.indexOf('.gcode') > -1 || fileType === 'dir')) {
+					if (file.length >= 8 && (name.indexOf('.gcode') > -1 || fileType === 'dir')) {
 						output.push({
 							name: name,
 							size: file[4],
