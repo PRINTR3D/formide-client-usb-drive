@@ -78,6 +78,8 @@ class UsbDrives extends Plugin {
 					let file = files[i].replace(/ +(?= )/g, '').split(' ')
 					let name = file[8]
 
+					if (!name) continue;
+
 					// filter
 					if (file.length > 9) {
 						name = file.splice(8, file.length - 1).join(' ')
@@ -90,7 +92,7 @@ class UsbDrives extends Plugin {
 					if (file.name.charAt(file.name.length - 1) === '*') {
 						file.name = file.name.slice(0, -1)
 					}
-					
+
 					// add to result if folder or gcode
 					if (file.length >= 8 && (file.name.indexOf('.gcode') > -1 || fileType === 'dir')) {
 						output.push({
