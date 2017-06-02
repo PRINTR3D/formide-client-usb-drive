@@ -78,8 +78,6 @@ class UsbDrives extends Plugin {
 					let file = files[i].replace(/ +(?= )/g, '').split(' ')
 					let name = file[8]
 
-					console.log('name', name)
-
 					if (!name) continue;
 
 					// filter
