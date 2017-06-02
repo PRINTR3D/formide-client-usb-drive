@@ -118,7 +118,7 @@ class UsbDrives extends Plugin {
 		return new Promise((resolve, reject) => {
 
 			// find full file path
-			const fullFilePath = path.resolve('/run/media', drive, filePath)
+			const fullFilePath = path.join('/run/media', drive, filePath)
 			console.log('fullFilePath', fullFilePath)
 			
 			// check if exits
