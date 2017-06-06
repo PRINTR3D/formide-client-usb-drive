@@ -88,8 +88,8 @@ class UsbDrives extends Plugin {
 					// determine if file or dir
 					const fileType = (name.charAt(name.length - 1) === '/') ? 'dir' : 'file'
 
-					// strip away * from file name (because of -F)
-					if (name.charAt(name.length - 1) === '*') {
+					// strip away * or / from file name (because of -F)
+					if ((name.charAt(name.length - 1) === '*') || (name.charAt(name.length - 1) === '/')) {
 						name = name.slice(0, -1)
 					}
 
