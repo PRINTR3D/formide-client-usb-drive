@@ -49,7 +49,11 @@ module.exports = {
 	 * @param callback
 	 */
 	read (drive, filePath, callback) {
-		exec(`${fusb} read ${drive} ${path.normalize(filePath)}`, (err, stdout) => {
+
+		// filter out spaces and too many slashes
+		filePath = path.normalize(filePath.replace(/ /g, '\\ '))
+
+		exec(`${fusb} read ${drive} ${filePath}`, (err, stdout) => {
 			if (err) return callback(err)
 			return callback(null, stdout.trim())
 		})
