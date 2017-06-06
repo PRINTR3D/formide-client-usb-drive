@@ -48,8 +48,8 @@ module.exports = {
 	 * @param path
 	 * @param callback
 	 */
-	read (drive, path, callback) {
-		exec(`${fusb} read ${drive} ${path}`, (err, stdout) => {
+	read (drive, filePath, callback) {
+		exec(`${fusb} read ${drive} ${path.normalize(filePath)}`, (err, stdout) => {
 			if (err) return callback(err)
 			return callback(null, stdout.trim())
 		})

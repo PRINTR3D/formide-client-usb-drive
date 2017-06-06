@@ -61,11 +61,11 @@ class UsbDrives extends Plugin {
 	/**
 	 * Read drive on relative path
 	 * @param {*} drive 
-	 * @param {*} path 
+	 * @param {*} filePath 
 	 */
-	readDrive (drive, path) {
+	readDrive (drive, filePath) {
 		return new Promise((resolve, reject) => {
-			usb.read(drive, path, (err, files) => {
+			usb.read(drive, filePath, (err, files) => {
 				if (err) return reject(err)
 
 				files = files.split('\n')
